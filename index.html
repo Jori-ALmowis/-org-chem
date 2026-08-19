@@ -1,1 +1,117 @@
-hello
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEO-CHEM OS v2.0 | جوري المويس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+    <aside class="sidebar">
+        <img src="school62.png" class="school-logo" alt="المركز">
+        <h2 class="os-title">NEO CHEM</h2>
+        
+        <div class="credits-box">
+            <p><b>الطالبة:</b> جوري المويس</p>
+            <p><b>بإشراف المعلمتين:</b> </p>
+            <p>صفيه حنيفه</p>
+            <p>سهام الشيخ</p>
+        </div>
+
+        <div class="system-nav">
+            <button onclick="changeTab('home')" id="tab-home" class="active">📘 مستكشف العناصر</button>
+            <button onclick="changeTab('learn')" id="tab-learn">🧠 أسرار الحفظ</button>
+            <button onclick="changeTab('lab')" id="tab-lab">🧪 مختبر التحدي</button>
+            <button onclick="changeTab('browser')" id="tab-browser">🌐 مصادر إضافية</button>
+        </div>
+
+        <div class="color-guide">
+            <h4>دليل التصنيفات:</h4>
+            <div class="guide-grid">
+                <div class="guide-item"><span class="dot alkali"></span> فلز قلوي</div>
+                <div class="guide-item"><span class="dot noble"></span> غاز نبيل</div>
+                <div class="guide-item"><span class="dot nonmetal"></span> لا فلز</div>
+                <div class="guide-item"><span class="dot metalloid"></span> شبه فلز</div>
+                <div class="guide-item"><span class="dot transition"></span> انتقالي</div>
+                <div class="guide-item"><span class="dot alkaline"></span> ترابي</div>
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        <section id="page-home" class="view-section active">
+            <h1 class="os-title">موسوعة الـ 118 عنصر</h1>
+           <div class="search-wrapper">
+    <div class="search-input-box">
+        <input type="text" id="elementSearch" placeholder="ابحث بالاسم، الرمز، أو العدد الذري..." onkeyup="filterElements()">
+    </div>
+</div>
+
+            <div id="explorer-grid" class="element-grid"></div>
+        </section>
+
+        <section id="page-learn" class="view-section">
+            <h1 class="os-title">دليل الحفظ الذكي 💡</h1>
+            <div class="learn-grid">
+                <div class="info-card-box"><h3>🔑 رموز "بصل خضر"</h3><p>بـ (بوتاسيوم K) | صـ (صوديوم Na) | لـ (ليثيوم Li)</p></div>
+                <div class="info-card-box highlight"><h3>🔢 سر الأعداد الذرية</h3><p>الغازات النبيلة زوجية: 2 (He)، 10 (Ne)، 18 (Ar).</p></div>
+                <div class="info-card-box"><h3>⚡ قاعدة "اليد" للتكافؤ</h3><p>المجموعات 1، 2، 13: التكافؤ (1، 2، 3).</p></div>
+                <div class="info-card-box highlight"><h3>💎 جملة "هنأ"</h3><p>هـ (هيليوم) | نـ (نيون) | أ (أرجون)</p></div>
+            </div>
+        </section>
+
+        <section id="page-lab" class="view-section">
+            <div id="name-modal" class="custom-modal">
+    <div class="modal-content quiz-start-card">
+        <div class="icon-header">🧪</div>
+        <h2>مختبر التحدي الذكي</h2>
+        <p>يرجى إدخال اسمك الثلاثي لبدء تحليل العناصر وإرسال النتائج</p>
+        <input type="text" id="student-name-input" placeholder="اكتبي اسمك هنا..." autocomplete="off">
+        <button onclick="confirmStart()" class="start-quiz-btn">ابدئي الاختبار الآن</button>
+    </div>
+</div>
+
+            <div class="lab-header">
+                <div class="score-display">النقاط: <span id="current-pts">000</span></div>
+                <div class="timer-box-neon"><div id="timer-text">30</div></div>
+            </div>
+            <div class="lab-main">
+                <h2 id="el-name" class="element-question">جاري التحميل...</h2>
+                <div id="options" class="options-grid"></div>
+                <div id="intel-panel" class="intel-panel-curtain">
+                    <div class="intel-box">العدد الذري: <strong id="intel-atom">--</strong></div>
+                    <div class="intel-box">التكافؤ: <strong id="intel-val">--</strong></div>
+                    <div class="tip-card-os"><p id="intel-tip">أجيبي لتحليل العنصر ومعرفة فائدته...</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-browser" class="view-section" style="height: 100%;">
+            <h1 class="os-title">متصفح NEO-CHEM</h1>
+            <iframe src="https://ar.wikipedia.org/wiki/جدول_دوري" style="width: 100%; height: 70vh; border: 2px solid var(--primary); border-radius: 15px; background: white;"></iframe>
+        </section>
+    </main>
+</div>
+
+<div id="modal" class="modal" onclick="closeModal()">
+    <div class="box" onclick="event.stopPropagation()">
+        <h2 id="m-title" style="color:var(--primary)"></h2>
+        <div id="m-info"></div>
+        <button class="close-btn" onclick="closeModal()">إغلاق</button>
+    </div>
+</div>
+<div id="success-modal" class="neon-modal">
+    <div class="modal-content quiz-start-card success-card">
+        <div class="success-icon-header">✅</div>
+        <h2>تم الإرسال!</h2>
+        <p id="success-message-text">يعطيك العافية يا [اسم الطالبة]، تم إرسال نتيجتك بنجاح للمعلمة.</p>
+        <button onclick="closeSuccessModal()" class="start-quiz-btn close-modal-btn">فهمت</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
